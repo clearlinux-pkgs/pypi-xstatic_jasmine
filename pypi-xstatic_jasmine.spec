@@ -4,7 +4,7 @@
 #
 Name     : pypi-xstatic_jasmine
 Version  : 2.4.1.2
-Release  : 3
+Release  : 4
 URL      : https://files.pythonhosted.org/packages/66/c2/d9480458ab724198581884ea22f836508a6c9282b8fb4a983bda8675cbba/XStatic-Jasmine-2.4.1.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/66/c2/d9480458ab724198581884ea22f836508a6c9282b8fb4a983bda8675cbba/XStatic-Jasmine-2.4.1.2.tar.gz
 Summary  : Jasmine 2.4.1 (XStatic packaging standard)
@@ -51,6 +51,7 @@ python3 components for the pypi-xstatic_jasmine package.
 cd %{_builddir}/XStatic-Jasmine-2.4.1.2
 pushd ..
 cp -a XStatic-Jasmine-2.4.1.2 buildavx2
+cp -a XStatic-Jasmine-2.4.1.2 buildavx512
 popd
 
 %build
@@ -58,7 +59,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1669969815
+export SOURCE_DATE_EPOCH=1671854981
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -71,8 +72,8 @@ export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
-export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -msse2avx "
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -msse2avx"
 export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
 export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3 "
@@ -87,7 +88,7 @@ echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -msse2avx "
 export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 export FFLAGS="$FFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 "
 export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3 "
